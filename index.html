@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiki — Paradox of Acceptance</title>
+<meta name="description" content="A glossary of contemplative concepts — awareness, non-duality, equanimity, and more. What the terms actually mean, what they don't, and why the distinctions matter.">
+<meta property="og:title" content="Wiki — Paradox of Acceptance">
+<meta property="og:description" content="Nine contemplative concepts explained without jargon. What the terms mean, what they don't, and why the distinctions matter.">
+<meta property="og:type" content="website">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f8f7f4;
+  --surface: #ffffff;
+  --border: #e6e3dd;
+  --border-light: #f0eeea;
+  --text: #1a1917;
+  --text-secondary: #5c5954;
+  --text-tertiary: #9b9790;
+  --accent: #2d5a27;
+  --accent-soft: #eef3ec;
+  --accent-glow: rgba(45, 90, 39, 0.06);
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.03);
+  --shadow-md: 0 2px 4px rgba(0,0,0,0.03), 0 8px 24px rgba(0,0,0,0.05);
+  --shadow-lg: 0 4px 8px rgba(0,0,0,0.04), 0 20px 48px rgba(0,0,0,0.07);
+
+  --ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- NAV ---- */
+nav {
+  padding: 20px 24px;
+  font-family: var(--font-sans);
+}
+
+nav a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  transition: color 0.25s var(--ease);
+}
+
+nav a:hover { color: var(--accent); }
+
+/* ---- HERO ---- */
+.hero {
+  text-align: center;
+  padding: 56px 24px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero-glow {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-count {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.hero h1 {
+  font-family: var(--font-sans);
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.hero .intro {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ---- CONTROLS ---- */
+.controls {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 32px 24px 0;
+}
+
+.search-wrap {
+  max-width: 380px;
+  margin: 0 auto 18px;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+#search {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+#search:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+#search::placeholder { color: #b5b2ac; }
+
+.filter-pills {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 6px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+}
+
+.pill:hover {
+  border-color: #c5c2bc;
+  color: var(--text-secondary);
+}
+
+.pill.active {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+/* ---- MAIN ---- */
+main {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 32px 24px 100px;
+}
+
+.no-results {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-tertiary);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  display: none;
+}
+
+.no-results.show { display: block; }
+
+/* ---- CONCEPT CARDS ---- */
+.concept-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 12px;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+
+.concept-card:hover { box-shadow: var(--shadow-md); }
+
+.concept-card.open {
+  box-shadow: var(--shadow-lg);
+}
+
+.concept-card.open::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  bottom: 16px;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 0 3px 3px 0;
+  opacity: 0;
+  animation: accentIn 0.4s 0.1s var(--ease) forwards;
+}
+
+@keyframes accentIn {
+  from { opacity: 0; top: 50%; bottom: 50%; }
+  to { opacity: 1; top: 16px; bottom: 16px; }
+}
+
+.concept-card.hidden { display: none; }
+
+.concept-header {
+  padding: 22px 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-radius: 16px;
+  user-select: none;
+  transition: background 0.25s var(--ease);
+}
+
+.concept-card.open .concept-header {
+  border-radius: 16px 16px 0 0;
+}
+
+.concept-header:hover {
+  background: rgba(45, 90, 39, 0.02);
+}
+
+.concept-cat-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease);
+}
+
+.concept-card.open .concept-cat-dot { transform: scale(1.4); }
+
+.concept-cat-dot.foundations { background: var(--accent); }
+.concept-cat-dot.practice { background: #b08d3b; }
+.concept-cat-dot.experience { background: #6b5aad; }
+
+.concept-meta { flex: 1; min-width: 0; }
+
+.concept-meta h2 {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.concept-tagline {
+  font-size: 0.86rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.concept-toggle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+  transition: all 0.35s var(--ease);
+}
+
+.concept-toggle svg {
+  transition: transform 0.35s var(--ease);
+}
+
+.concept-card.open .concept-toggle {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.concept-card.open .concept-toggle svg {
+  transform: rotate(45deg);
+}
+
+/* Accordion */
+.concept-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s var(--ease);
+}
+
+.concept-card.open .concept-body {
+  grid-template-rows: 1fr;
+}
+
+.concept-body-inner {
+  overflow: hidden;
+}
+
+.concept-content {
+  padding: 0 24px 28px;
+  padding-left: 48px;
+  border-top: 1px solid var(--border-light);
+}
+
+.section {
+  margin-top: 24px;
+}
+
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.section p {
+  font-size: 0.98rem;
+  line-height: 1.85;
+  margin-bottom: 12px;
+}
+
+.section p:last-child { margin-bottom: 0; }
+
+.concept-related {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+.concept-related span {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.concept-related a {
+  color: var(--accent);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.concept-related a:hover { opacity: 0.7; }
+
+/* ---- FOOTER ---- */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 24px;
+  text-align: center;
+  font-family: var(--font-sans);
+  color: var(--text-tertiary);
+  font-size: 0.82rem;
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+footer a:hover { opacity: 0.7; }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 640px) {
+  .hero { padding: 40px 20px 16px; }
+  main { padding: 24px 16px 72px; }
+  .controls { padding: 28px 16px 0; }
+  .concept-header { padding: 18px 18px; gap: 12px; }
+  .concept-content { padding: 0 18px 24px; padding-left: 18px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://nickxma.github.io/paradox-of-acceptance/">← Paradox of Acceptance</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-count">9 Concepts</div>
+  <h1>Wiki</h1>
+  <p class="intro">The vocabulary of contemplative practice is dense and often circular. This is an attempt to make it more legible — what the terms actually mean, what they don't, and where the distinctions matter.</p>
+</div>
+
+<div class="controls">
+  <div class="search-wrap">
+    <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="search" placeholder="Search concepts...">
+  </div>
+  <div class="filter-pills">
+    <button class="pill active" data-cat="all" onclick="setFilter('all')">All</button>
+    <button class="pill" data-cat="foundations" onclick="setFilter('foundations')">Foundations</button>
+    <button class="pill" data-cat="practice" onclick="setFilter('practice')">Practice</button>
+    <button class="pill" data-cat="experience" onclick="setFilter('experience')">Experience</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- FOUNDATIONS -->
+
+  <div class="concept-card" id="c-awareness" data-cat="foundations">
+    <div class="concept-header" onclick="toggle('c-awareness')">
+      <div class="concept-cat-dot foundations"></div>
+      <div class="concept-meta">
+        <h2>Awareness</h2>
+        <p class="concept-tagline">The condition in which all experience appears</p>
+      </div>
+      <div class="concept-toggle"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+    </div>
+    <div class="concept-body"><div class="concept-body-inner"><div class="concept-content">
+      <div class="section">
+        <div class="section-label">What It Is</div>
+        <p>Awareness is what makes experience possible. It's not something you do — it's the fact that anything is known at all. Whatever you're experiencing right now — these words, the feeling of sitting, the background hum of your thoughts — all of it is appearing within awareness.</p>
+        <p>Awareness has several striking features when examined directly. It seems to be present whether what's appearing is pleasant or unpleasant. It doesn't change character depending on its contents. And when you try to find where it ends, you can't — because even the looking is happening within it.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">What It Isn't</div>
+        <p>Awareness is not attention. Attention moves from object to object; awareness is the field in which attention moves. It's also not a blank state or an absence of experience — it's closer to the opposite. It's the fullness that makes any experience possible in the first place.</p>
+      </div>
+      <div class="concept-related">
+        <span>Related:</span>
+        <a onclick="scrollTo('c-appearances')">Appearances</a>,
+        <a onclick="scrollTo('c-observer')">The Observer</a>,
+        <a onclick="scrollTo('c-nonduality')">Non-duality</a>
+      </div>
+    </div></div></div>
+  </div>
+
+  <div class="concept-card" id="c-mindfulness" data-cat="foundations">
+    <div class="concept-header" onclick="toggle('c-mindfulness')">
+      <div class="concept-cat-dot foundations"></div>
+      <div class="concept-meta">
+        <h2>Mindfulness</h2>
+        <p class="concept-tagline">Knowing what's happening while it's happening</p>
+      </div>
+      <div class="concept-toggle"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+    </div>
+    <div class="concept-body"><div class="concept-body-inner"><div class="concept-content">
+      <div class="section">
+        <div class="section-label">What It Is</div>
+        <p>Mindfulness, at its simplest, is the clear knowing of experience in real time. When you're lost in thought — planning, worrying, replaying — mindfulness is the moment you notice. Not the content of the thought. The noticing itself.</p>
+        <p>As practice deepens, the word stretches. Mindfulness can describe a deliberate skill (paying attention on purpose), a quality of attention (open, curious, non-reactive), or a mode of being in which awareness recognizes itself without needing a meditator to manage it.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">What It Isn't</div>
+        <p>Mindfulness is not concentration. Concentration stabilizes attention on a chosen object. Mindfulness notices the whole event of experience — including where attention has gone and whether grasping or aversion are shaping the moment. They're complementary but different.</p>
+      </div>
+      <div class="concept-related">
+        <span>Related:</span>
+        <a onclick="scrollTo('c-awareness')">Awareness</a>,
+        <a onclick="scrollTo('c-concentration')">Concentration</a>,
+        <a onclick="scrollTo('c-acceptance')">Acceptance</a>
+      </div>
+    </div></div></div>
+  </div>
+
+  <div class="concept-card" id="c-nonduality" data-cat="foundations">
+    <div class="concept-header" onclick="toggle('c-nonduality')">
+      <div class="concept-cat-dot foundations"></div>
+      <div class="concept-meta">
+        <h2>Non-duality</h2>
+        <p class="concept-tagline">The collapse of the subject-object split</p>
+      </div>
+      <div class="concept-toggle"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+    </div>
+    <div class="concept-body"><div class="concept-body-inner"><div class="concept-content">
+      <div class="section">
+        <div class="section-label">What It Is</div>
+        <p>In ordinary experience, there seems to be a structure: you are in here (behind your eyes, inside your head) and the world is out there. Non-duality refers to the recognition that this structure doesn't hold up under investigation.</p>
+        <p>When you look for the one who is aware — the subject behind attention — you don't find a separate entity. What's left is experience happening, without someone standing apart from it. Awareness and what appears in it are not two different things.</p>
+        <p>This isn't a philosophical position to adopt. It's an observation that can be made directly, usually briefly at first, about the structure of experience.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">What It Isn't</div>
+        <p>Non-duality is not the absence of ordinary knowledge. You can still recognize your hand as your hand. The shift is in how experience is structured — not as "me looking at a thing" but as a single field of knowing in which the apparent division between knower and known has dissolved.</p>
+      </div>
+      <div class="concept-related">
+        <span>Related:</span>
+        <a onclick="scrollTo('c-awareness')">Awareness</a>,
+        <a onclick="scrollTo('c-observer')">The Observer</a>,
+        <a onclick="scrollTo('c-ego')">Ego</a>
+      </div>
+    </div></div></div>
+  </div>
+
+  <!-- PRACTICE -->
+
+  <div class="concept-card" id="c-acceptance" data-cat="practice">
+    <div class="concept-header" onclick="toggle('c-acceptance')">
+      <div class="concept-cat-dot practice"></div>
+      <div class="concept-meta">
+        <h2>Acceptance</h2>
+        <p class="concept-tagline">Letting experience be known without adding resistance</p>
+      </div>
+      <div class="concept-toggle"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+    </div>
+    <div class="concept-body"><div class="concept-body-inner"><div class="concept-content">
+      <div class="section">
+        <div class="section-label">What It Is</div>
+        <p>Acceptance, in the contemplative sense, means allowing present experience to be fully known — without fighting it, denying it, or trying to become someone else in relation to it. It's less about approving of what's happening and more about ceasing to add a second layer of struggle to what's already here.</p>
+        <p>Crucially, acceptance doesn't mean giving up on changing things. It means starting from honest contact with what's actually present, rather than from resistance to it. When you stop fighting the moment, it often becomes clearer what to do about it.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">What It Isn't</div>
+        <p>Acceptance is not resignation. It doesn't require liking or agreeing with what's happening. The distinction matters because acceptance is often described as making action cleaner — not preventing it. You can fully accept a situation and still work to change it. The acceptance is about how you relate to the moment, not whether you act on it.</p>
+      </div>
+      <div class="concept-related">
+        <span>Related:</span>
+        <a onclick="scrollTo('c-equanimity')">Equanimity</a>,
+        <a onclick="scrollTo('c-mindfulness')">Mindfulness</a>,
+        <a onclick="scrollTo('c-nonduality')">Non-duality</a>
+      </div>
+    </div></div></div>
+  </div>
+
+  <div class="concept-card" id="c-equanimity" data-cat="practice">
+    <div class="concept-header" onclick="toggle('c-equanimity')">
+      <div class="concept-cat-dot practice"></div>
+      <div class="concept-meta">
+        <h2>Equanimity</h2>
+        <p class="concept-tagline">Steadiness in the face of changing experience</p>
+      </div>
+      <div class="concept-toggle"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+    </div>
+    <div class="concept-body"><div class="concept-body-inner"><div class="concept-content">
+      <div class="section">
+        <div class="section-label">What It Is</div>
+        <p>Equanimity is the capacity to meet experience with balance, regardless of whether it's pleasant or unpleasant. It's the quality that allows you to remain present with what's happening without being immediately pushed or pulled by it.</p>
+        <p>It's not a permanent state but a kind of emotional posture — spacious, steady, available. When equanimity is present, you can still respond to what's happening, but the response comes from clarity rather than reactivity.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">What It Isn't</div>
+        <p>Equanimity is not numbness, detachment, or not caring. It's not the absence of feeling. It's a different relationship to feeling — one where experience is allowed to be fully felt without the additional suffering that comes from grasping at what's pleasant or fighting what's not.</p>
+      </div>
+      <div class="concept-related">
+        <span>Related:</span>
+        <a onclick="scrollTo('c-acceptance')">Acceptance</a>,
+        <a onclick="scrollTo('c-awareness')">Awareness</a>,
+        <a onclick="scrollTo('c-mindfulness')">Mindfulness</a>
+      </div>
+    </div></div></div>
+  </div>
+
+  <div class="concept-card" id="c-concentration" data-cat="practice">
+    <div class="concept-header" onclick="toggle('c-concentration')">
+      <div class="concept-cat-dot practice"></div>
+      <div class="concept-meta">
+        <h2>Concentration</h2>
+        <p class="concept-tagline">The deliberate stabilization of attention</p>
+      </div>
+      <div class="concept-toggle"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+    </div>
+    <div class="concept-body"><div class="concept-body-inner"><div class="concept-content">
+      <div class="section">
+        <div class="section-label">What It Is</div>
+        <p>Concentration is the capacity to hold attention on a chosen object — the breath, a sound, a visual point — without being pulled away. In most contemplative traditions, it's considered a foundational skill: the steadiness of mind that makes subtler observations possible.</p>
+        <p>Concentration builds over time. At first, attention wanders every few seconds. With practice, it becomes more stable. This stability creates the conditions for mindfulness and insight — you can notice things about the structure of experience that are invisible when the mind is scattered.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">What It Isn't</div>
+        <p>Concentration is often confused with mindfulness, but they serve different functions. Concentration narrows and stabilizes. Mindfulness opens and notices. Most practices use both, in different proportions and at different stages. Concentration without mindfulness can become rigid; mindfulness without concentration tends to be diffuse.</p>
+      </div>
+      <div class="concept-related">
+        <span>Related:</span>
+        <a onclick="scrollTo('c-mindfulness')">Mindfulness</a>,
+        <a onclick="scrollTo('c-awareness')">Awareness</a>
+      </div>
+    </div></div></div>
+  </div>
+
+  <!-- EXPERIENCE -->
+
+  <div class="concept-card" id="c-observer" data-cat="experience">
+    <div class="concept-header" onclick="toggle('c-observer')">
+      <div class="concept-cat-dot experience"></div>
+      <div class="concept-meta">
+        <h2>The Observer</h2>
+        <p class="concept-tagline">The felt sense of someone watching from behind your eyes</p>
+      </div>
+      <div class="concept-toggle"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+    </div>
+    <div class="concept-body"><div class="concept-body-inner"><div class="concept-content">
+      <div class="section">
+        <div class="section-label">What It Is</div>
+        <p>In ordinary consciousness, there's a persistent feeling that you are a separate entity — a watcher — sitting behind your eyes and observing the world. This sense of being "the one who sees" feels like the most basic fact about being alive.</p>
+        <p>In contemplative practice, this sense of a separate observer is exactly what gets investigated. The central question is: when you look for this watcher, is there actually anything there? Or is the feeling of being a subject one more appearance in consciousness — a sensation rather than an entity?</p>
+      </div>
+      <div class="section">
+        <div class="section-label">What It Isn't</div>
+        <p>Questioning the observer doesn't mean there's no experience happening. Seeing, hearing, thinking — all of that continues. What falls away is the sense that there's someone standing behind the seeing, separate from it. The looking continues; the looker dissolves.</p>
+      </div>
+      <div class="concept-related">
+        <span>Related:</span>
+        <a onclick="scrollTo('c-nonduality')">Non-duality</a>,
+        <a onclick="scrollTo('c-awareness')">Awareness</a>,
+        <a onclick="scrollTo('c-ego')">Ego</a>
+      </div>
+    </div></div></div>
+  </div>
+
+  <div class="concept-card" id="c-appearances" data-cat="experience">
+    <div class="concept-header" onclick="toggle('c-appearances')">
+      <div class="concept-cat-dot experience"></div>
+      <div class="concept-meta">
+        <h2>Appearances</h2>
+        <p class="concept-tagline">Anything that shows up in consciousness</p>
+      </div>
+      <div class="concept-toggle"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+    </div>
+    <div class="concept-body"><div class="concept-body-inner"><div class="concept-content">
+      <div class="section">
+        <div class="section-label">What It Is</div>
+        <p>Appearances is a term for everything that arises in experience — thoughts, sensations, emotions, perceptions, sounds, visual impressions. The word emphasizes something important: these phenomena appear on their own. They arise, they're known, and they dissolve. You don't manufacture most of what shows up in consciousness.</p>
+        <p>The term also points at the relationship between experience and awareness. Appearances are not separate from the awareness in which they appear — the way waves are not separate from the ocean. This becomes important when investigating the nature of experience directly.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">What It Isn't</div>
+        <p>Calling something an "appearance" doesn't mean it's fake or unreal. A headache that appears in consciousness still hurts. The word isn't about denying experience — it's about noticing how experience actually arrives: unbidden, vivid, and self-resolving.</p>
+      </div>
+      <div class="concept-related">
+        <span>Related:</span>
+        <a onclick="scrollTo('c-awareness')">Awareness</a>,
+        <a onclick="scrollTo('c-nonduality')">Non-duality</a>,
+        <a onclick="scrollTo('c-observer')">The Observer</a>
+      </div>
+    </div></div></div>
+  </div>
+
+  <div class="concept-card" id="c-ego" data-cat="experience">
+    <div class="concept-header" onclick="toggle('c-ego')">
+      <div class="concept-cat-dot experience"></div>
+      <div class="concept-meta">
+        <h2>Ego</h2>
+        <p class="concept-tagline">The constructed sense of being a separate, continuous entity</p>
+      </div>
+      <div class="concept-toggle"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+    </div>
+    <div class="concept-body"><div class="concept-body-inner"><div class="concept-content">
+      <div class="section">
+        <div class="section-label">What It Is</div>
+        <p>Ego, in the contemplative sense, refers to the habitual sense of being a fixed, separate self — the "me" at the center of all experience. It's the feeling that there's a continuous person who has your memories, holds your opinions, and will still be here tomorrow in essentially the same form.</p>
+        <p>Contemplative practice investigates this sense of self directly. What it tends to reveal is that the ego isn't a thing you have but a pattern the mind generates — a habitual contraction of identity around thoughts, preferences, and the ongoing narrative of "me." When you look for it, you find a process, not an entity.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">What It Isn't</div>
+        <p>Investigating the ego doesn't mean trying to destroy it or pretending you don't have preferences. The point isn't to become an empty shell. It's that the feeling of being a fixed, separate entity — the one who needs to be defended, validated, and maintained — is less solid than it appears. When that recognition stabilizes, certain kinds of suffering lose their structural support.</p>
+      </div>
+      <div class="concept-related">
+        <span>Related:</span>
+        <a onclick="scrollTo('c-observer')">The Observer</a>,
+        <a onclick="scrollTo('c-nonduality')">Non-duality</a>,
+        <a onclick="scrollTo('c-acceptance')">Acceptance</a>
+      </div>
+    </div></div></div>
+  </div>
+
+  <div class="no-results" id="no-results">No concepts match that search.</div>
+</main>
+
+<footer>
+  <p>Part of <a href="https://nickxma.github.io/paradox-of-acceptance/">Paradox of Acceptance</a></p>
+</footer>
+
+<script>
+var cards = document.querySelectorAll('.concept-card');
+var searchInput = document.getElementById('search');
+var noResults = document.getElementById('no-results');
+var activeFilter = 'all';
+
+function toggle(id) {
+  var card = document.getElementById(id);
+  var wasOpen = card.classList.contains('open');
+  card.classList.toggle('open');
+  if (!wasOpen) {
+    setTimeout(function() {
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  }
+}
+
+function scrollTo(id) {
+  var card = document.getElementById(id);
+  if (!card.classList.contains('open')) card.classList.add('open');
+  setTimeout(function() {
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
+}
+
+function setFilter(cat) {
+  activeFilter = cat;
+  document.querySelectorAll('.pill').forEach(function(p) {
+    p.classList.toggle('active', p.dataset.cat === cat);
+  });
+  applyFilters();
+}
+
+function applyFilters() {
+  var query = searchInput.value.toLowerCase().trim();
+  var visible = 0;
+
+  cards.forEach(function(card) {
+    var matchesCat = activeFilter === 'all' || card.dataset.cat === activeFilter;
+    var text = card.textContent.toLowerCase();
+    var matchesSearch = !query || text.indexOf(query) !== -1;
+    var show = matchesCat && matchesSearch;
+
+    card.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+
+  noResults.classList.toggle('show', visible === 0);
+}
+
+searchInput.addEventListener('input', applyFilters);
+</script>
+
+</body>
+</html>

@@ -15,16 +15,57 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script>if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+:root {
+  --bg: #FFFFFF;
+  --bg-hover: #FAFAFA;
+  --bg-input: #FFFFFF;
+  --text-primary: #111111;
+  --text-body: #555555;
+  --text-muted: #999999;
+  --text-faint: #666666;
+  --border-light: #EEEEEE;
+  --border: #E0E0E0;
+  --border-hover: #CCCCCC;
+  --dot-foundations: #111111;
+  --dot-practice: #888888;
+  --dot-experience: #BBBBBB;
+  --toggle-open-bg: #111111;
+  --toggle-open-text: #FFFFFF;
+  --card-open-border: #111111;
+  --pill-active-bg: #111111;
+}
+[data-theme="dark"] {
+  --bg: #111111;
+  --bg-hover: #1A1A1A;
+  --bg-input: #1C1C1C;
+  --text-primary: #EEEEEE;
+  --text-body: #888888;
+  --text-muted: #555555;
+  --text-faint: #777777;
+  --border-light: #222222;
+  --border: #2A2A2A;
+  --border-hover: #444444;
+  --dot-foundations: #DDDDDD;
+  --dot-practice: #777777;
+  --dot-experience: #444444;
+  --toggle-open-bg: #DDDDDD;
+  --toggle-open-text: #111111;
+  --card-open-border: #555555;
+  --pill-active-bg: #DDDDDD;
+}
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  background: #FFFFFF;
-  color: #555;
+  background: var(--bg);
+  color: var(--text-body);
   min-height: 100vh;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: background 0.2s, color 0.2s;
 }
 
 :focus-visible {
@@ -49,14 +90,19 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 24px 48px;
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1px solid var(--border-light);
 }
 .poa-nav-brand {
   font-family: 'Newsreader', serif;
   font-size: 20px;
   font-weight: 500;
-  color: #111;
+  color: var(--text-primary);
   text-decoration: none;
+}
+.poa-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
 }
 .poa-nav-links {
   display: flex;
@@ -67,12 +113,27 @@ body {
   font-family: 'Inter', sans-serif;
   font-size: 13px;
   font-weight: 500;
-  color: #666;
+  color: var(--text-faint);
   text-decoration: none;
   transition: color 0.15s;
 }
-.poa-nav-links a:hover { color: #111; }
-.poa-nav-links a.active { color: #111; }
+.poa-nav-links a:hover { color: var(--text-primary); }
+.poa-nav-links a.active { color: var(--text-primary); }
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--text-muted);
+  transition: color 0.15s;
+  display: flex;
+  align-items: center;
+}
+.theme-toggle:hover { color: var(--text-primary); }
+.icon-moon { display: block; }
+.icon-sun { display: none; }
+[data-theme="dark"] .icon-moon { display: none; }
+[data-theme="dark"] .icon-sun { display: block; }
 
 /* ---- HERO ---- */
 .hero {
@@ -87,7 +148,7 @@ body {
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #999;
+  color: var(--text-muted);
   margin-bottom: 16px;
 }
 
@@ -95,7 +156,7 @@ body {
   font-family: 'Newsreader', serif;
   font-size: clamp(2.2rem, 5vw, 3rem);
   font-weight: 500;
-  color: #111;
+  color: var(--text-primary);
   line-height: 1.15;
   margin-bottom: 16px;
 }
@@ -103,7 +164,7 @@ body {
 .hero .intro {
   font-family: 'Inter', sans-serif;
   font-size: 15px;
-  color: #555;
+  color: var(--text-body);
   line-height: 1.6;
   max-width: 600px;
 }
@@ -133,21 +194,21 @@ body {
 #search {
   width: 100%;
   padding: 10px 14px 10px 40px;
-  border: 1px solid #E0E0E0;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  background: #FFFFFF;
+  background: var(--bg-input);
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-  color: #111;
+  color: var(--text-primary);
   outline: none;
   transition: border-color 0.2s;
 }
 
 #search:focus {
-  border-color: #111;
+  border-color: var(--text-primary);
 }
 
-#search::placeholder { color: #999; }
+#search::placeholder { color: var(--text-muted); }
 
 .filter-pills {
   display: flex;
@@ -160,23 +221,23 @@ body {
   font-size: 13px;
   font-weight: 500;
   padding: 6px 16px;
-  border: 1px solid #E0E0E0;
+  border: 1px solid var(--border);
   border-radius: 4px;
   background: transparent;
-  color: #999;
+  color: var(--text-muted);
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .pill:hover {
-  border-color: #999;
-  color: #555;
+  border-color: var(--text-muted);
+  color: var(--text-body);
 }
 
 .pill.active {
-  background: #111;
-  color: #fff;
-  border-color: #111;
+  background: var(--pill-active-bg);
+  color: var(--bg);
+  border-color: var(--pill-active-bg);
 }
 
 /* ---- MAIN ---- */
@@ -199,17 +260,17 @@ main {
 
 /* ---- CONCEPT CARDS ---- */
 .concept-card {
-  border: 1px solid #E0E0E0;
+  border: 1px solid var(--border);
   border-radius: 6px;
   margin-bottom: 12px;
   position: relative;
   transition: border-color 0.2s;
 }
 
-.concept-card:hover { border-color: #CCC; }
+.concept-card:hover { border-color: var(--border-hover); }
 
 .concept-card.open {
-  border-color: #111;
+  border-color: var(--card-open-border);
 }
 
 .concept-card.hidden { display: none; }
@@ -230,7 +291,7 @@ main {
 }
 
 .concept-header:hover {
-  background: #FAFAFA;
+  background: var(--bg-hover);
 }
 
 .concept-cat-dot {
@@ -240,9 +301,9 @@ main {
   flex-shrink: 0;
 }
 
-.concept-cat-dot.foundations { background: #111; }
-.concept-cat-dot.practice { background: #888; }
-.concept-cat-dot.experience { background: #BBB; }
+.concept-cat-dot.foundations { background: var(--dot-foundations); }
+.concept-cat-dot.practice { background: var(--dot-practice); }
+.concept-cat-dot.experience { background: var(--dot-experience); }
 
 .concept-meta { flex: 1; min-width: 0; }
 
@@ -250,7 +311,7 @@ main {
   font-family: 'Newsreader', serif;
   font-size: 1.15rem;
   font-weight: 500;
-  color: #111;
+  color: var(--text-primary);
   line-height: 1.35;
   margin-bottom: 2px;
 }
@@ -258,7 +319,7 @@ main {
 .concept-tagline {
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-  color: #999;
+  color: var(--text-muted);
   font-style: italic;
   line-height: 1.5;
 }
@@ -267,11 +328,11 @@ main {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 1px solid #E0E0E0;
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #999;
+  color: var(--text-muted);
   flex-shrink: 0;
   transition: all 0.25s;
 }
@@ -281,9 +342,9 @@ main {
 }
 
 .concept-card.open .concept-toggle {
-  background: #111;
-  border-color: #111;
-  color: white;
+  background: var(--toggle-open-bg);
+  border-color: var(--toggle-open-bg);
+  color: var(--toggle-open-text);
 }
 
 .concept-card.open .concept-toggle svg {
@@ -308,7 +369,7 @@ main {
 .concept-content {
   padding: 0 24px 28px;
   padding-left: 48px;
-  border-top: 1px solid #EEE;
+  border-top: 1px solid var(--border-light);
 }
 
 .section {
@@ -321,7 +382,7 @@ main {
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #999;
+  color: var(--text-muted);
   margin-bottom: 10px;
 }
 
@@ -329,7 +390,7 @@ main {
   font-family: 'Inter', sans-serif;
   font-size: 15px;
   line-height: 1.7;
-  color: #555;
+  color: var(--text-body);
   margin-bottom: 12px;
 }
 
@@ -338,10 +399,10 @@ main {
 .concept-related {
   margin-top: 24px;
   padding-top: 16px;
-  border-top: 1px solid #EEE;
+  border-top: 1px solid var(--border-light);
   font-family: 'Inter', sans-serif;
   font-size: 13px;
-  color: #999;
+  color: var(--text-muted);
 }
 
 .concept-related span {
@@ -350,7 +411,7 @@ main {
 }
 
 .concept-related a {
-  color: #111;
+  color: var(--text-primary);
   text-decoration: none;
   cursor: pointer;
   transition: opacity 0.2s;
@@ -360,7 +421,7 @@ main {
 
 /* ---- FOOTER ---- */
 .site-footer {
-  border-top: 1px solid #EEE;
+  border-top: 1px solid var(--border-light);
   padding: 48px 48px 40px;
 }
 .footer-inner {
@@ -375,14 +436,14 @@ main {
   font-family: 'Newsreader', serif;
   font-weight: 500;
   font-size: 18px;
-  color: #111;
+  color: var(--text-primary);
   text-decoration: none;
 }
 .footer-brand-link:hover { opacity: 0.7; }
 .footer-tagline {
   font-family: 'Inter', sans-serif;
   font-size: 13px;
-  color: #999;
+  color: var(--text-muted);
   margin-top: 8px;
   line-height: 1.5;
 }
@@ -401,17 +462,17 @@ main {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #999;
+  color: var(--text-muted);
   margin-bottom: 4px;
 }
 .footer-col a {
   font-family: 'Inter', sans-serif;
   font-size: 13px;
-  color: #555;
+  color: var(--text-body);
   text-decoration: none;
   transition: color 0.15s;
 }
-.footer-col a:hover { color: #111; }
+.footer-col a:hover { color: var(--text-primary); }
 
 /* ---- RESPONSIVE ---- */
 @media (max-width: 900px) {
@@ -444,10 +505,16 @@ main {
 
 <nav class="poa-nav">
   <a href="https://paradoxofacceptance.xyz/" class="poa-nav-brand">Paradox of Acceptance</a>
-  <div class="poa-nav-links">
-    <a href="https://paradoxofacceptance.xyz/">Tools</a>
-    <a href="https://paradoxofacceptance.xyz/mindfulness-essays/">Essays</a>
-    <a href="https://paradoxofacceptance.xyz/mindfulness-wiki/" class="active">Wiki</a>
+  <div class="poa-nav-right">
+    <div class="poa-nav-links">
+      <a href="https://paradoxofacceptance.xyz/">Tools</a>
+      <a href="https://paradoxofacceptance.xyz/mindfulness-essays/">Essays</a>
+      <a href="https://paradoxofacceptance.xyz/mindfulness-wiki/" class="active">Wiki</a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+      <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
   </div>
 </nav>
 
@@ -493,6 +560,10 @@ main {
         <div class="section-label">What It Isn't</div>
         <p>Awareness is not attention. Attention moves from object to object; awareness is the field in which attention moves. It's also not a blank state or an absence of experience — it's closer to the opposite. It's the fullness that makes any experience possible in the first place.</p>
       </div>
+      <div class="section">
+        <div class="section-label">Practice Implication</div>
+        <p>You stop trying to create or improve awareness and start noticing that the noticing is already happening. The shift is from effortful cultivation to simple recognition. Awareness doesn't need to be developed — it needs to be seen. This changes what a "good session" looks like.</p>
+      </div>
       <div class="concept-related">
         <span>Related:</span>
         <a href="#" onclick="event.preventDefault();scrollTo('c-appearances')">Appearances</a>,
@@ -520,6 +591,11 @@ main {
       <div class="section">
         <div class="section-label">What It Isn't</div>
         <p>Mindfulness is not concentration. Concentration stabilizes attention on a chosen object. Mindfulness notices the whole event of experience — including where attention has gone and whether grasping or aversion are shaping the moment. They're complementary but different.</p>
+        <p>Mindfulness is also not a technique for feeling better in the moment. It sometimes makes things clearer before it makes them more comfortable.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">Practice Implication</div>
+        <p>The moment of noticing you were lost is not a failure — it is mindfulness. Progress isn't an unbroken state of presence. It's the interval between getting lost and noticing: that gap shortens, and the recognition itself becomes less judgmental. This reframes what counts as a good session.</p>
       </div>
       <div class="concept-related">
         <span>Related:</span>
@@ -549,6 +625,11 @@ main {
       <div class="section">
         <div class="section-label">What It Isn't</div>
         <p>Non-duality is not the absence of ordinary knowledge. You can still recognize your hand as your hand. The shift is in how experience is structured — not as "me looking at a thing" but as a single field of knowing in which the apparent division between knower and known has dissolved.</p>
+        <p>It's also not a permanent state you achieve. And one thing worth watching: many discussions move quickly from "awareness is already complete" to "of course practical consequences still matter" without explaining the bridge between them. Both claims may be true. The connection is worth sitting with rather than assuming.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">Practice Implication</div>
+        <p>The investigation is not aspirational — you're not trying to become non-dual. You're checking whether the subject-object split is as solid as it feels. Pick any experience and look for the boundary between the one experiencing and the thing experienced. What you find is the inquiry.</p>
       </div>
       <div class="concept-related">
         <span>Related:</span>
@@ -579,6 +660,12 @@ main {
       <div class="section">
         <div class="section-label">What It Isn't</div>
         <p>Acceptance is not resignation. It doesn't require liking or agreeing with what's happening. The distinction matters because acceptance is often described as making action cleaner — not preventing it. You can fully accept a situation and still work to change it. The acceptance is about how you relate to the moment, not whether you act on it.</p>
+        <p>Acceptance also gets misused in two opposite ways: as a reason to stay passive ("I'm just accepting this"), and as a way to dissolve the discomfort that would otherwise prompt action. These are different problems, but both follow from taking the practice further than the situation calls for.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">Practice Implication</div>
+        <p>The test of acceptance isn't whether you feel at peace — it's whether your contact with the situation is honest. It means starting from what's actually here rather than from the version of it you'd prefer. That honest contact is what makes action, where warranted, more accurate.</p>
+        <p>There's also a longer-term question worth holding: the same acceptance that removes unnecessary struggle can, taken far enough, flatten the emotional stakes that normally organize action. That tension is explored in <a href="https://paradoxofacceptance.xyz/mindfulness-essays/" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">the essays</a>.</p>
       </div>
       <div class="concept-related">
         <span>Related:</span>
@@ -607,6 +694,11 @@ main {
       <div class="section">
         <div class="section-label">What It Isn't</div>
         <p>Equanimity is not numbness, detachment, or not caring. It's not the absence of feeling. It's a different relationship to feeling — one where experience is allowed to be fully felt without the additional suffering that comes from grasping at what's pleasant or fighting what's not.</p>
+        <p>This distinction matters in practice. Someone cultivating equanimity as emotional flattening is more likely to reach for it defensively — to escape situations that are uncomfortable, rather than stay present with them. That's closer to suppression than equanimity.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">Practice Implication</div>
+        <p>Equanimity tends to arrive as a byproduct, not a product. If you're working toward it as a goal, you've made it into another object of grasping — which is the same pattern it resolves. The more direct approach is meeting whatever's here with as little editorial addition as possible. Steadiness tends to follow from that, not from trying to be steady.</p>
       </div>
       <div class="concept-related">
         <span>Related:</span>
@@ -635,6 +727,11 @@ main {
       <div class="section">
         <div class="section-label">What It Isn't</div>
         <p>Concentration is often confused with mindfulness, but they serve different functions. Concentration narrows and stabilizes. Mindfulness opens and notices. Most practices use both, in different proportions and at different stages. Concentration without mindfulness can become rigid; mindfulness without concentration tends to be diffuse.</p>
+        <p>More concentration is not always better. High concentration without insight can temporarily suppress difficult material without resolving it — things quiet down during practice, then return. The goal is stability in service of seeing clearly, not stability as an end.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">Practice Implication</div>
+        <p>The value of concentration isn't focus for its own sake. A stable mind can notice subtler things — the texture of distraction, how habits form, what the difference between intention and compulsion actually feels like. Concentration is a prerequisite for certain observations, not the observation itself.</p>
       </div>
       <div class="concept-related">
         <span>Related:</span>
@@ -664,6 +761,11 @@ main {
       <div class="section">
         <div class="section-label">What It Isn't</div>
         <p>Questioning the observer doesn't mean there's no experience happening. Seeing, hearing, thinking — all of that continues. What falls away is the sense that there's someone standing behind the seeing, separate from it. The looking continues; the looker dissolves.</p>
+        <p>It's also not about becoming a better observer. That framing keeps the observer in place and turns the practice into self-improvement. The question is whether the observer is actually there to begin with.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">Practice Implication</div>
+        <p>Most people who investigate the observer directly report something unexpected: they don't find a thing. They find more appearances. The looking continues without locating a looker. What becomes clear is that the observer was never a fact — it was a felt sense, like any other. Whether that recognition changes anything depends on how load-bearing the observer was to begin with.</p>
       </div>
       <div class="concept-related">
         <span>Related:</span>
@@ -693,6 +795,10 @@ main {
         <div class="section-label">What It Isn't</div>
         <p>Calling something an "appearance" doesn't mean it's fake or unreal. A headache that appears in consciousness still hurts. The word isn't about denying experience — it's about noticing how experience actually arrives: unbidden, vivid, and self-resolving.</p>
       </div>
+      <div class="section">
+        <div class="section-label">Practice Implication</div>
+        <p>When thoughts are recognized as appearances — things that arise unbidden, the way sounds or sensations do — the relationship to thinking changes. You become less identified with their content and more interested in the fact of their arising. They still contain information; they just carry less automatic authority. A thought about what you should do is now one appearance among others, not a directive.</p>
+      </div>
       <div class="concept-related">
         <span>Related:</span>
         <a href="#" onclick="event.preventDefault();scrollTo('c-awareness')">Awareness</a>,
@@ -720,6 +826,11 @@ main {
       <div class="section">
         <div class="section-label">What It Isn't</div>
         <p>Investigating the ego doesn't mean trying to destroy it or pretending you don't have preferences. The point isn't to become an empty shell. It's that the feeling of being a fixed, separate entity — the one who needs to be defended, validated, and maintained — is less solid than it appears. When that recognition stabilizes, certain kinds of suffering lose their structural support.</p>
+        <p>Trying to "kill the ego" is itself an ego project. The question isn't elimination — it's whether the solidity you attributed to it was ever really there.</p>
+      </div>
+      <div class="section">
+        <div class="section-label">Practice Implication</div>
+        <p>When the ego is held less tightly, certain kinds of difficulty stop being destabilizing. A criticism that used to require defense becomes information. An opinion can be changed without it feeling like collapse. The goal isn't to have no perspective — it's that perspective becomes less load-bearing. The views are still there; they just carry less of the self with them.</p>
       </div>
       <div class="concept-related">
         <span>Related:</span>
@@ -737,7 +848,7 @@ main {
   <div class="footer-inner">
     <div>
       <a href="https://paradoxofacceptance.xyz/" class="footer-brand-link">Paradox of Acceptance</a>
-      <p class="footer-tagline">Tools for the questions practice raises.</p>
+      <p class="footer-tagline">The better you get at accepting the present moment, the less threatening the future becomes.</p>
     </div>
     <nav class="footer-nav" aria-label="Footer">
       <div class="footer-col">
@@ -760,6 +871,16 @@ main {
 </footer>
 
 <script>
+/* Theme toggle */
+(function() {
+  var root = document.documentElement;
+  document.getElementById('theme-toggle').addEventListener('click', function() {
+    var isDark = root.getAttribute('data-theme') === 'dark';
+    if (isDark) { root.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); }
+    else { root.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
+  });
+})();
+
 var cards = document.querySelectorAll('.concept-card');
 var searchInput = document.getElementById('search');
 var noResults = document.getElementById('no-results');
